@@ -44,15 +44,17 @@ class ListController extends Controller
             ],
         ];
 
+
+
         $searchable = ['name','email'];
         $sortable = ['name','id','count'];
         $metadata = ['first'=>'this is first metadta','second'=>'this is second'];
 
         $dbDriver = new DBDriver();
 
-        $listLib = new ListLibrary($dbDriver,15,$columns,$searchable,$sortable,$metadata);
+        $listLib = new ListLibrary($dbDriver,100,3,$columns,$searchable,$sortable,$metadata);
 
-        return response($listLib->getList(),200);
+        return response($listLib->getList(1),200);
     }
 
     /**

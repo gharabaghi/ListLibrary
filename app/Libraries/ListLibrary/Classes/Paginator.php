@@ -8,12 +8,12 @@ class Paginator{
 
     protected $page;
 
-    public function construct(int $perPage = null, int $page = null){
+    public function __construct(int $perPage = null, int $page = null){
 
         //setting default page length in a config file would be a better choice
-        $this->perPage = $perPage?? 10;
+        $this->perPage = ($perPage?? 10);
 
-        $this->page = $page?? 1;
+        $this->page = ($page?? 1);
 
     }
 
@@ -34,6 +34,7 @@ class Paginator{
     }
 
     public function paginate($list, $page=null):array{
-        return array_slice($list,($this->perPage)*(($page??$this->page)-1),$this->perPage);
+        $page = $page?? $this->page;
+        return array_slice($list,($this->perPage)*($page-1),$this->perPage);
     }
 }

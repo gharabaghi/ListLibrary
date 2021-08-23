@@ -42,7 +42,7 @@ class ListSearch
         }
         $output = [];
         foreach ($list as $l) {
-            if (array_search($needle, array_intersect($l, array_flip($this->searchable)), true) !== false) {
+            if (array_search($needle, array_intersect_key($l, array_flip($this->searchable)), true) !== false) {
                 $output[] = $l;
             }
         }

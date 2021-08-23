@@ -11,8 +11,6 @@ class ListLibrary
 
     protected $list;
 
-    protected ListHelper $helper;
-
     protected $perPage;
 
     protected ListSort $listSort;
@@ -25,7 +23,7 @@ class ListLibrary
 
     protected Columns $columns;
 
-    public function __construct($driver, $perPage = null, array $columns, array $searchable = [], array $sortable = [], array $metadata = [])
+    public function __construct($driver, $perPage = null,$page=1, array $columns, array $searchable = [], array $sortable = [], array $metadata = [])
     {
         $this->setDriverObject($driver);
 
@@ -35,7 +33,7 @@ class ListLibrary
 
         $this->validateCols($columns, $searchable, $sortable);
 
-        $this->paginator = new Paginator($perPage ?? $this->defaultPageLength, 1);
+        $this->paginator = new Paginator($perPage ?? $this->defaultPageLength, $page);
 
         $this->listSearch = new ListSearch($searchable);
 
