@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('ii',[Controller::class,'ii']);
+Route::resource('/list',ListController::class)->only(['index']);
