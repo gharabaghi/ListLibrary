@@ -18,6 +18,7 @@ class CreateListTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('title');
+            $table->string('email');
             $table->integer('count');
         });
     }
