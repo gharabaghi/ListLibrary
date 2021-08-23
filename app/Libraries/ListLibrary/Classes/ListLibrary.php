@@ -94,11 +94,13 @@ class ListLibrary
         $this->metadata = $metadata;
     }
 
-    public function getDriver(){
+    public function getDriver()
+    {
         return $this->driver;
     }
 
-    public function setDriver($driver){
+    public function setDriver($driver)
+    {
         $this->setDriverObject($driver);
     }
 
@@ -121,22 +123,35 @@ class ListLibrary
         return ['list' => $this->fetchContent(), 'metadata' => $this->metadata, 'columns' => $this->columns->getColumnsInfo()];
     }
 
+    public function nextPage()
+    {
+        $this->paginator->setPage($this->paginator->getPage() + 1);
+        return $this->getList();
+    }
+
+    public function previousPage()
+    {
+        $page = $this->paginator->getPage();
+        if ($page > 1) {
+            $page--;
+        }
+        return $this->getList();
+    }
+
     protected function fetchContent()
     {
         $list = $this->listSearch->search($this->list);
-        
+
         $list = $this->listSort->sort($list);
 
         $list = $this->paginator->paginate($list);
 
-        // dd($list);
         $list = $this->columns->filterOutput($list);
-        
+
         $list = $this->columns->castColumns($list);
 
         return $list;
     }
-
 
     protected function setDriverObject($driver)
     {
@@ -144,6 +159,6 @@ class ListLibrary
             throw new \Exception('Driver must implement ListDriver interface');
         }
 
-        $this->driver = $driver; 
+        $this->driver = $driver;
     }
 }
